@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Открывашка — просмотр Word и Excel онлайн</title>
+<meta name="description" content="Открывает .docx, .doc, .xlsx, .xls прямо в браузере. Файл никуда не загружается — всё читается на вашем устройстве.">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#f4f1ea" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#17181c" media="(prefers-color-scheme: dark)">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Открывашка">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="bar">
+  <button class="brand" id="home" title="На главную">
+    <img src="favicon-32.png" alt="" width="24" height="24">
+    <span>Открывашка</span>
+  </button>
+  <div class="fileinfo" id="fileinfo" hidden>
+    <span class="badge" id="badge"></span>
+    <span class="fname" id="fname"></span>
+  </div>
+  <div class="tools" id="tools" hidden>
+    <div class="search">
+      <input id="q" type="search" placeholder="Поиск" autocomplete="off" enterkeyhint="search">
+      <span class="count" id="qcount"></span>
+      <button class="ic" id="qprev" title="Предыдущее (Shift+Enter)" aria-label="Предыдущее">‹</button>
+      <button class="ic" id="qnext" title="Следующее (Enter)" aria-label="Следующее">›</button>
+    </div>
+    <div class="seg" id="layout" title="Как показывать документ">
+      <button data-m="page" class="on">Лист</button><button data-m="text">Текст</button>
+    </div>
+    <div class="zoom">
+      <button class="ic" id="zout" title="Мельче (Ctrl −)" aria-label="Мельче">−</button>
+      <button class="zv" id="zval" title="По ширине окна">100%</button>
+      <button class="ic" id="zin" title="Крупнее (Ctrl +)" aria-label="Крупнее">+</button>
+    </div>
+    <button class="ic wide" id="print" title="Печать или сохранить в PDF">Печать</button>
+    <button class="ic wide accent" id="open2" title="Открыть другой файл">Открыть</button>
+  </div>
+</header>
+
+<main id="start" class="start">
+  <div class="drop" id="drop">
+    <div class="glyphs" aria-hidden="true">
+      <span class="g w">W</span><span class="g x">X</span>
+    </div>
+    <h1>Откройте документ или таблицу</h1>
+    <p class="lead">Перетащите файл сюда или выберите на устройстве</p>
+    <label class="btn">
+      <input type="file" id="file" accept=".docx,.docm,.dotx,.doc,.dot,.xlsx,.xlsm,.xltx,.xlsb,.xls,.xlt,.ods,.csv,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/msword,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel">
+      Выбрать файл
+    </label>
+    <p class="formats">.docx · .doc · .xlsx · .xls · .ods · .csv</p>
+  </div>
+  <ul class="facts">
+    <li><b>Ничего не загружается.</b> Файл читается прямо в браузере и не уходит в интернет.</li>
+    <li><b>Работает без сети.</b> Можно поставить на телефон или компьютер как приложение.</li>
+    <li><b>Ctrl+V</b> — вставить файл из буфера, <b>Ctrl+O</b> — открыть.</li>
+  </ul>
+</main>
+
+<main id="view" class="view" hidden>
+  <div class="note" id="note" hidden></div>
+  <div class="cellbar" id="cellbar" hidden>
+    <span class="addr" id="addr"></span>
+    <span class="cval" id="cval"></span>
+  </div>
+  <div class="scroller" id="scroller">
+    <div class="content" id="content"></div>
+  </div>
+  <nav class="sheets" id="sheets" hidden></nav>
+</main>
+
+<div class="loading" id="loading" hidden><div class="spin"></div><span>Открываю…</span></div>
+<div class="dropmask" id="dropmask" hidden><span>Отпустите, чтобы открыть</span></div>
+<div class="toast" id="toast" hidden></div>
+
+<script src="vendor/jszip.min.js"></script>
+<script src="vendor/docx-preview.min.js"></script>
+<script src="vendor/xlsx.full.min.js"></script>
+<script src="doc.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
